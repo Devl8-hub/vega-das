@@ -25,6 +25,9 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
+    - name: Install NSIS
+      run: choco install nsis
+
     - name: Download Libraries
       run: python build_files/utils/make_update.py --no-blender
 
