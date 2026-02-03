@@ -87,3 +87,7 @@ compile_commands.json
 blendcache_*
 *.blend1
 *.blend2
+
+# Vega DAS build artifacts
+/release/darwin/Vega DAS.app/
+/_CPack_Packages/
