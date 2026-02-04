@@ -175,7 +175,7 @@ if(WIN32 AND NOT UNIX)
   )
 
   list(APPEND SRC
-    ${CMAKE_SOURCE_DIR}/release/windows/icons/winblender.rc
+    ${CMAKE_SOURCE_DIR}/release/windows/icons/vegadas.rc
   )
 
   if(NOT WITH_WINDOWS_EXTERNAL_MANIFEST)
@@ -357,7 +357,7 @@ else()
   if(WIN32)
     add_executable(blender-launcher WIN32
       blender_launcher_win32.c
-      ${CMAKE_SOURCE_DIR}/release/windows/icons/winblender.rc
+      ${CMAKE_SOURCE_DIR}/release/windows/icons/vegadas.rc
     )
     if(NOT WITH_WINDOWS_EXTERNAL_MANIFEST)
       target_sources(blender-launcher PRIVATE
