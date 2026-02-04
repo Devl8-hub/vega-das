@@ -2094,7 +2094,7 @@ endif()
 # Setup launcher
 
 if(WIN32 AND NOT WITH_PYTHON_MODULE)
-  set(BLENDER_BIN "blender.exe")
+  set(BLENDER_BIN "vega_das.exe")
   install(
     TARGETS blender blender-launcher
     COMPONENT Blender

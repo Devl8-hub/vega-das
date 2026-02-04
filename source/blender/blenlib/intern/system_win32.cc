@@ -387,7 +387,7 @@ static void bli_load_symbols()
     /* remove the filename */
     PathRemoveFileSpecA(pdb_file);
     /* append blender.pdb */
-    PathAppendA(pdb_file, "blender.pdb");
+    PathAppendA(pdb_file, "vega_das.pdb");
     if (PathFileExistsA(pdb_file)) {
       HMODULE mod = GetModuleHandle(nullptr);
       if (mod) {
@@ -532,7 +532,7 @@ static bool bli_executable_path_get(LPWSTR path, DWORD size)
     return false;
   }
 
-  /* Replace the filename "blender.exe" with "blender-launcher.exe". */
+  /* Replace the filename "vega_das.exe" with "blender-launcher.exe". */
   if (!PathRemoveFileSpecW(executable_path)) {
     /* Failed to remove the file spec. Use the original path. */
     return true;
