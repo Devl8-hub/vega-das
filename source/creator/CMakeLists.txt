@@ -353,7 +353,11 @@ else()
     # blender binary has been loaded by the OS.
     target_link_libraries(blender PRIVATE blender_cpu_check)
   endif()
-  set_target_properties(blender PROPERTIES OUTPUT_NAME "vega_das")
+  if(WIN32)
+    set_target_properties(blender PROPERTIES OUTPUT_NAME "Vega DAS")
+  else()
+    set_target_properties(blender PROPERTIES OUTPUT_NAME "vega_das")
+  endif()
   if(WIN32)
     add_executable(blender-launcher WIN32
       blender_launcher_win32.c
@@ -2094,7 +2098,7 @@ endif()
 # Setup launcher
 
 if(WIN32 AND NOT WITH_PYTHON_MODULE)
-  set(BLENDER_BIN "vega_das.exe")
+  set(BLENDER_BIN "Vega DAS.exe")
   install(
     TARGETS blender blender-launcher
     COMPONENT Blender
