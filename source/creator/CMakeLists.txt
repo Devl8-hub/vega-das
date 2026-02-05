@@ -332,7 +332,7 @@ if(WITH_PYTHON_MODULE)
     set_target_properties(blender PROPERTIES MACOSX_BUNDLE TRUE)
     set_target_properties(blender PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Vega DAS")
     if(WITH_BLENDER_THUMBNAILER)
-      set_target_properties(blender-thumbnailer PROPERTIES MACOSX_BUNDLE TRUE)
+      set_target_properties(vega-das-thumbnailer PROPERTIES MACOSX_BUNDLE TRUE)
     endif()
   endif()
 
@@ -353,23 +353,20 @@ else()
     # blender binary has been loaded by the OS.
     target_link_libraries(blender PRIVATE blender_cpu_check)
   endif()
+  set_target_properties(blender PROPERTIES OUTPUT_NAME "Vega DAS")
   if(WIN32)
-    set_target_properties(blender PROPERTIES OUTPUT_NAME "Vega DAS")
-  else()
-    set_target_properties(blender PROPERTIES OUTPUT_NAME "vega_das")
-  endif()
-  if(WIN32)
-    add_executable(blender-launcher WIN32
+    add_executable(Vega_DAS_launcher WIN32
       blender_launcher_win32.c
       ${CMAKE_SOURCE_DIR}/release/windows/icons/vegadas.rc
     )
     if(NOT WITH_WINDOWS_EXTERNAL_MANIFEST)
-      target_sources(blender-launcher PRIVATE
+      target_sources(Vega_DAS_launcher PRIVATE
         ${CMAKE_BINARY_DIR}/blender.exe.manifest
       )
     endif()
-    target_compile_definitions(blender-launcher PRIVATE -D_UNICODE -DUNICODE)
-    target_link_libraries(blender-launcher Pathcch.lib)
+    target_compile_definitions(Vega_DAS_launcher PRIVATE -D_UNICODE -DUNICODE)
+    target_link_libraries(Vega_DAS_launcher Pathcch.lib)
+    set_target_properties(Vega_DAS_launcher PROPERTIES OUTPUT_NAME "Vega DAS_launcher")
   endif()
 endif()
 
@@ -412,8 +409,8 @@ if(UNIX AND NOT APPLE)
       set(TARGETDIR_TEXT ".")
       set(TARGETDIR_LIB "lib")
     else()
-      set(TARGETDIR_VER "share/blender/${BLENDER_VERSION}")
-      set(TARGETDIR_TEXT "share/doc/blender")
+      set(TARGETDIR_VER "share/vega-das/${BLENDER_VERSION}")
+      set(TARGETDIR_TEXT "share/doc/vega-das")
     endif()
   endif()
   set(TARGETDIR_SITE_PACKAGES "${TARGETDIR_VER}/python/lib/python${PYTHON_VERSION}/site-packages")
@@ -427,7 +424,7 @@ elseif(WIN32)
   else()
     set(TARGETDIR_VER "${BLENDER_VERSION}")
     set(TARGETDIR_TEXT ".")
-    set(TARGETDIR_LIB "blender.shared")
+    set(TARGETDIR_LIB "vega-das.shared")
     set(TARGETDIR_EXE ".")
   endif()
   set(TARGETDIR_SITE_PACKAGES "${TARGETDIR_VER}/python/lib/site-packages")
@@ -453,7 +450,7 @@ elseif(APPLE)
   # Skip re-linking on CPACK / install.
   set_target_properties(blender PROPERTIES BUILD_WITH_INSTALL_RPATH true)
   if(WITH_BLENDER_THUMBNAILER)
-    set_target_properties(blender-thumbnailer PROPERTIES BUILD_WITH_INSTALL_RPATH true)
+    set_target_properties(vega-das-thumbnailer PROPERTIES BUILD_WITH_INSTALL_RPATH true)
   endif()
 endif()
 
@@ -776,7 +773,7 @@ if(UNIX AND NOT APPLE)
 
     if(WITH_BLENDER_THUMBNAILER)
       install(
-        TARGETS blender-thumbnailer
+        TARGETS vega-das-thumbnailer
         DESTINATION "."
       )
     endif()
@@ -793,7 +790,7 @@ if(UNIX AND NOT APPLE)
 
       install(
         PROGRAMS
-        ${CMAKE_SOURCE_DIR}/release/bin/blender-launcher
+        ${CMAKE_SOURCE_DIR}/release/bin/vega-das-launcher
         ${CMAKE_SOURCE_DIR}/release/bin/blender-softwaregl
         DESTINATION "."
       )
@@ -840,7 +837,7 @@ file(REMOVE ${CMAKE_BINARY_DIR}/bin/lib/libglapi.so.0.0.0)\n
     )
     if(WITH_BLENDER_THUMBNAILER)
       install(
-        TARGETS blender-thumbnailer
+        TARGETS vega-das-thumbnailer
         DESTINATION "./bin"
       )
     endif()
@@ -1045,7 +1042,7 @@ elseif(WIN32)
     install(
       FILES ${CMAKE_BINARY_DIR}/blender.exe.manifest
       DESTINATION "."
-      RENAME blender-launcher.exe.manifest
+      RENAME Vega_DAS_launcher.exe.manifest
     )
   endif()
   windows_install_shared_manifest(
@@ -1693,8 +1690,8 @@ elseif(APPLE)
   )
 
   if(WITH_BLENDER_THUMBNAILER)
-    set(OSX_THUMBNAILER_SOURCEDIR ${OSX_APP_SOURCEDIR}/Contents/PlugIns/blender-thumbnailer.appex)
-    set_target_properties(blender-thumbnailer PROPERTIES
+    set(OSX_THUMBNAILER_SOURCEDIR ${OSX_APP_SOURCEDIR}/Contents/PlugIns/vega-das-thumbnailer.appex)
+    set_target_properties(vega-das-thumbnailer PROPERTIES
       BUNDLE_EXTENSION appex
       MACOSX_BUNDLE_INFO_PLIST ${OSX_THUMBNAILER_SOURCEDIR}/Contents/Info.plist
       MACOSX_BUNDLE_SHORT_VERSION_STRING "${BLENDER_VERSION}.${BLENDER_VERSION_PATCH}"
@@ -1737,7 +1734,7 @@ elseif(APPLE)
 
   if(WITH_BLENDER_THUMBNAILER)
     install(
-      TARGETS blender-thumbnailer
+      TARGETS vega-das-thumbnailer
       DESTINATION "./Vega DAS.app/Contents/PlugIns"
     )
   endif()
@@ -1797,7 +1794,7 @@ elseif(APPLE)
     unset(PYTHON_EXECUTABLE_NAME_ONLY)
     install(
       PROGRAMS ${CMAKE_BINARY_DIR}/release/darwin/scripts/blender-system-info.sh
-      DESTINATION "Blender.app/Contents/Resources"
+      DESTINATION "Vega DAS.app/Contents/Resources"
     )
   endif()
 
@@ -2100,7 +2097,7 @@ endif()
 if(WIN32 AND NOT WITH_PYTHON_MODULE)
   set(BLENDER_BIN "Vega DAS.exe")
   install(
-    TARGETS blender blender-launcher
+    TARGETS blender Vega_DAS_launcher
     COMPONENT Blender
     DESTINATION "."
   )
@@ -2189,4 +2186,14 @@ endif()
 
 if(POSTINSTALL_SCRIPT)
   install(SCRIPT ${POSTINSTALL_SCRIPT})
+endif()
+
+if(APPLE)
+  # Ad-hoc sign the app bundle after all resources are installed.
+  # This ensures the signature includes Python scripts, icons, and other resources.
+  install(CODE "
+    execute_process(
+      COMMAND codesign --force --deep --sign - \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/Vega DAS.app\"
+    )
+  ")
 endif()

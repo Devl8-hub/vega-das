@@ -204,7 +204,7 @@ bool BLI_windows_register_blend_extension(const bool all_users)
   if (!blender_app) {
     return false;
   }
-  strcpy(blender_app, "blender-launcher.exe");
+  strcpy(blender_app, "Vega DAS_launcher.exe");
 
   if (!open_registry_hive(all_users, &root)) {
     return false;

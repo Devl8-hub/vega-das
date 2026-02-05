@@ -512,7 +512,7 @@ static std::string get_os_info()
 }
 
 /**
- * Retrieve the path to "blender-launcher.exe" if it exists; otherwise, return the current
+ * Retrieve the path to "Vega DAS_launcher.exe" if it exists; otherwise, return the current
  * executable path.
  */
 static bool bli_executable_path_get(LPWSTR path, DWORD size)
@@ -532,20 +532,20 @@ static bool bli_executable_path_get(LPWSTR path, DWORD size)
     return false;
   }
 
-  /* Replace the filename "vega_das.exe" with "blender-launcher.exe". */
+  /* Replace the filename "vega_das.exe" with "Vega DAS_launcher.exe". */
   if (!PathRemoveFileSpecW(executable_path)) {
     /* Failed to remove the file spec. Use the original path. */
     return true;
   }
-  if (!PathAppendW(executable_path, L"blender-launcher.exe")) {
+  if (!PathAppendW(executable_path, L"Vega DAS_launcher.exe")) {
     /* Failed to append the new filename. Use the original path. */
     return true;
   }
 
-  /* Check if "blender-launcher.exe" exists at this path. */
+  /* Check if "Vega DAS_launcher.exe" exists at this path. */
   DWORD attributes = GetFileAttributesW(executable_path);
   if (attributes == INVALID_FILE_ATTRIBUTES || (attributes & FILE_ATTRIBUTE_DIRECTORY)) {
-    /* "blender-launcher.exe" does not exist. Use the original executable path. */
+    /* "Vega DAS_launcher.exe" does not exist. Use the original executable path. */
     return true;
   }
 
