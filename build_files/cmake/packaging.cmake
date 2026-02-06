@@ -116,7 +116,8 @@ endif()
 
 # Shortcuts: "Executable Name" "Shortcut Label"
 set(CPACK_PACKAGE_EXECUTABLES "Vega DAS_launcher" "Vega DAS")
-set(CPACK_CREATE_DESKTOP_LINKS "Vega DAS_launcher")
+set(CPACK_CREATE_DESKTOP_LINKS "Vega DAS")
+set(CPACK_NSIS_MENU_LINKS "Vega DAS_launcher.exe" "Vega DAS")
 
 include(CPack)
 

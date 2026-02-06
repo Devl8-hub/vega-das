@@ -91,8 +91,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     return -1;
   }
 
-  /* Add vega_das.exe to path, resulting in the full path to the blender executable. */
-  if (PathCchCombine(path, MAX_PATH, path, L"vega_das.exe") != S_OK) {
+  /* Add Vega DAS.exe to path, resulting in the full path to the blender executable. */
+  if (PathCchCombine(path, MAX_PATH, path, L"Vega DAS.exe") != S_OK) {
     return -1;
   }
 
