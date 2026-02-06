@@ -17,6 +17,7 @@ class MINIMAL_MT_editor_types(Menu):
         # Layout workspace editors
         layout.label(text="Layout")
         ui_type_entry("3D Viewport", 'VIEW3D', 'VIEW_3D')
+        ui_type_entry("Outliner", 'OUTLINER', 'OUTLINER')
         ui_type_entry("Properties", 'PROPERTIES', 'PROPERTIES')
         
         layout.separator()

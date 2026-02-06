@@ -4507,6 +4507,9 @@ class VIEW3D_MT_edit_mesh_context_menu(Menu):
             # col.operator("mesh.dissolve_verts")
             # col.operator("mesh.delete", text="Delete Vertices").type = 'VERT'
 
+            col.separator()
+            col.menu("VIEW3D_MT_uv_map", text="UV Mapping")
+
         if is_edge_mode:
             col = row.column(align=True)
             col.label(text="Edge", icon='EDGESEL')
@@ -4552,8 +4555,11 @@ class VIEW3D_MT_edit_mesh_context_menu(Menu):
 
             # col.separator()
 
-            # col.operator("mesh.mark_seam", icon='EDGE_SEAM').clear = False
-            # col.operator("mesh.mark_seam", text="Clear Seam").clear = True
+            col.operator("mesh.mark_seam", icon='EDGE_SEAM').clear = False
+            col.operator("mesh.mark_seam", text="Clear Seam").clear = True
+
+            col.separator()
+            col.menu("VIEW3D_MT_uv_map", text="UV Mapping")
 
             # col.separator()
 
@@ -4600,7 +4606,7 @@ class VIEW3D_MT_edit_mesh_context_menu(Menu):
             col.separator()
 
             # Modify Operators
-            col.menu("VIEW3D_MT_uv_map", text="UV Unwrap Faces")
+            col.menu("VIEW3D_MT_uv_map", text="UV Mapping")
 
             col.separator()
 

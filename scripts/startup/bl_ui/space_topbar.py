@@ -602,6 +602,12 @@ class TOPBAR_MT_window(Menu):
             layout.separator()
             layout.operator("wm.set_stereo_3d")
 
+        layout.separator()
+        layout.label(text="Layout")
+        props = layout.operator("wm.context_set_enum", text="Outliner", icon='OUTLINER')
+        props.data_path = "area.ui_type"
+        props.value = 'OUTLINER'
+
 
 class TOPBAR_MT_help(Menu):
     bl_label = "Help"

@@ -457,6 +457,23 @@ class _defs_view3d_select:
         )
 
     @ToolDef.from_fn
+    def box_seam():
+        def draw_settings(_context, layout, tool):
+            props = tool.operator_properties("mesh.select_box_seam")
+            if props:
+                row = layout.row()
+                row.use_property_split = False
+                row.prop(props, "mode", text="", expand=True, icon_only=True)
+        return dict(
+            idname="builtin.select_box_seam",
+            label="Select Seam Box",
+            icon="ops.generic.select_box",
+            widget=None,
+            keymap="3D View Tool: Select Box",
+            draw_settings=draw_settings,
+        )
+
+    @ToolDef.from_fn
     def lasso():
         def draw_settings(_context, layout, tool):
             props = tool.operator_properties("view3d.select_lasso")
@@ -3709,6 +3726,7 @@ class VIEW3D_PT_tools_active(ToolSelectPanelHelper, Panel):
         ],
         'OBJECT': [
             *_tools_default,
+            _defs_view3d_generic.ruler,
             None,
             # _tools_view3d_add,
         ],
@@ -3723,104 +3741,32 @@ class VIEW3D_PT_tools_active(ToolSelectPanelHelper, Panel):
         ],
         'EDIT_ARMATURE': [
             *_tools_default,
-            None,
-            _defs_edit_armature.roll,
-            (
-                _defs_edit_armature.bone_size,
-                _defs_edit_armature.bone_envelope,
-            ),
-            None,
-            (
-                _defs_edit_armature.extrude,
-                _defs_edit_armature.extrude_cursor,
-            ),
-            _defs_transform.shear,
         ],
         'EDIT_MESH': [
-            *_tools_default,
-
+            (
+                _defs_view3d_select.select,
+                _defs_view3d_select.box_seam,
+                _defs_view3d_select.circle,
+                _defs_view3d_select.lasso,
+            ),
+            _defs_view3d_generic.cursor,
             None,
-            _tools_view3d_add,
-            None,
-            (
-                _defs_edit_mesh.extrude,
-                _defs_edit_mesh.extrude_manifold,
-                _defs_edit_mesh.extrude_normals,
-                _defs_edit_mesh.extrude_individual,
-                _defs_edit_mesh.extrude_cursor,
-            ),
-            _defs_edit_mesh.inset,
-            _defs_edit_mesh.bevel,
-            (
-                _defs_edit_mesh.loopcut_slide,
-                _defs_edit_mesh.offset_edge_loops_slide,
-            ),
-            (
-                _defs_edit_mesh.knife,
-                _defs_edit_mesh.bisect,
-            ),
-            _defs_edit_mesh.poly_build,
-            _defs_edit_mesh.spin,
-            (
-                _defs_edit_mesh.vertex_smooth,
-                _defs_edit_mesh.vertex_randomize,
-            ),
-            (
-                _defs_edit_mesh.edge_slide,
-                _defs_edit_mesh.vert_slide,
-            ),
-            (
-                _defs_edit_mesh.shrink_fatten,
-                _defs_edit_mesh.push_pull,
-            ),
-            (
-                _defs_transform.shear,
-                _defs_edit_mesh.tosphere,
-            ),
-            (
-                _defs_edit_mesh.rip_region,
-                _defs_edit_mesh.rip_edge,
-            ),
+            *_tools_transform,
         ],
         'EDIT_CURVE': [
             *_tools_default,
-            None,
-            _defs_edit_curve.draw,
-            _defs_edit_curve.pen,
-            (
-                _defs_edit_curve.extrude,
-                _defs_edit_curve.extrude_cursor,
-            ),
-            None,
-            _defs_edit_curve.curve_radius,
-            _defs_edit_curve.tilt,
-            None,
-            _defs_transform.shear,
-            _defs_edit_curve.curve_vertex_randomize,
         ],
         'EDIT_CURVES': [
             *_tools_default,
-            None,
-            _defs_edit_curves.draw,
-            _defs_edit_curves.pen,
-            None,
-            _defs_edit_curve.curve_radius,
-            _defs_edit_curve.tilt,
         ],
         'EDIT_SURFACE': [
             *_tools_default,
-            None,
-            _defs_transform.shear,
         ],
         'EDIT_METABALL': [
             *_tools_default,
-            None,
-            _defs_transform.shear,
         ],
         'EDIT_LATTICE': [
             *_tools_default,
-            None,
-            _defs_transform.shear,
         ],
         'EDIT_TEXT': [
             _defs_edit_text.select_text,
@@ -3830,34 +3776,10 @@ class VIEW3D_PT_tools_active(ToolSelectPanelHelper, Panel):
             # _defs_view3d_generic.ruler,
         ],
         'EDIT_GREASE_PENCIL': [
-            *_tools_select,
-            _defs_view3d_generic.cursor,
-            None,
-            *_tools_transform,
-            None,
-            _defs_grease_pencil_edit.pen,
-            None,
-            _defs_edit_curve.curve_radius,
-            _defs_transform.bend,
-            (
-                _defs_grease_pencil_edit.shear,
-                _defs_edit_mesh.tosphere,
-            ),
-            None,
-            _defs_grease_pencil_edit.interpolate,
-            None,
-            _defs_grease_pencil_edit.texture_gradient,
-            None,
-            # *_tools_annotate,
+            *_tools_default,
         ],
         'EDIT_POINTCLOUD': [
-            *_tools_select,
-            _defs_view3d_generic.cursor,
-            None,
-            *_tools_transform,
-            None,
-            # *_tools_annotate,
-            # _defs_view3d_generic.ruler,
+            *_tools_default,
         ],
         'PARTICLE': [
             *_tools_select,
