@@ -506,21 +506,24 @@ if(PLATFORM_BUNDLED_LIBRARIES)
   else()
     list(APPEND CMAKE_INSTALL_RPATH "@loader_path/../Resources/lib")
   endif()
-
-  # For binaries that are built but not installed (like makesdna or tests), we add
-  # the original directory of all shared libraries to the rpath. This is needed because
-  # these can be in different folders, and because the build and install folder may be
-  # different.
-  set(CMAKE_SKIP_BUILD_RPATH FALSE)
-  list(APPEND CMAKE_BUILD_RPATH ${PLATFORM_BUNDLED_LIBRARY_DIRS})
-
-  # Environment variables to run precompiled executables that needed libraries.
-  list(JOIN PLATFORM_BUNDLED_LIBRARY_DIRS ":" _library_paths)
-  # Intentionally double "$$" which expands into "$" when instantiated.
-  set(PLATFORM_ENV_BUILD "DYLD_LIBRARY_PATH=\"${_library_paths}:$$DYLD_LIBRARY_PATH\"")
-  set(PLATFORM_ENV_INSTALL "DYLD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX_WITH_CONFIG}/Blender.app/Contents/Resources/lib/:$$DYLD_LIBRARY_PATH")
-  unset(_library_paths)
 endif()
 
 # Same as `CFBundleIdentifier` in Info.plist.
-set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.blenderfoundation.blender")
+set(CMAKE_XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.vegadas.blender")
+
+# Environment for build-time tools (like oslc).
+if(DEFINED LIBDIR)
+  file(GLOB _lib_subdirs "${LIBDIR}/*")
+  set(_platform_env)
+  foreach(_dir ${_lib_subdirs})
+    if(IS_DIRECTORY "${_dir}/lib")
+      list(APPEND _platform_env "${_dir}/lib")
+    endif()
+  endforeach()
+  list(JOIN _platform_env ":" _platform_env_str)
+  set(PLATFORM_ENV_BUILD "DYLD_LIBRARY_PATH=${_platform_env_str}")
+  unset(_lib_subdirs)
+  unset(_dir)
+  unset(_platform_env)
+  unset(_platform_env_str)
+endif()

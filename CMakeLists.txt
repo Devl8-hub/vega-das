@@ -113,7 +113,7 @@ include(build_files/cmake/macros.cmake)
 
 blender_project_hack_pre()
 
-project(Blender)
+project("Vega DAS")
 
 blender_project_hack_post()
 
@@ -233,13 +233,13 @@ thumbnails from `.blend` files."
   )
 elseif(UNIX AND NOT APPLE)
   option(WITH_BLENDER_THUMBNAILER "\
-Build stand-alone \"blender-thumbnailer\" command-line thumbnail extraction utility, \
+Build stand-alone \"vega-das-thumbnailer\" command-line thumbnail extraction utility, \
 intended for use by file-managers to extract PNG images from `.blend` files."
     ON
   )
 elseif(APPLE)
   option(WITH_BLENDER_THUMBNAILER "\
-Build \"blender-thumbnailer.appex\" extension for Finder/ QuickLook thumbnail \
+Build \"vega-das-thumbnailer.appex\" extension for Finder/ QuickLook thumbnail \
 support for blend files."
     ON
   )

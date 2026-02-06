@@ -14,8 +14,8 @@
  *
  * \code{.txt}
  * [Thumbnailer Entry]
- * TryExec=blender-thumbnailer
- * Exec=blender-thumbnailer %u %o
+ * TryExec=vega-das-thumbnailer
+ * Exec=vega-das-thumbnailer %u %o
  * MimeType=application/x-blender;
  * \endcode
  */
@@ -92,7 +92,7 @@ static eThumbStatus extract_png_from_blend_file(const char *src_blend, const cha
 int main(int argc, char *argv[])
 {
   if (argc < 3) {
-    std::cerr << "Usage: blender-thumbnailer <input.blend> <output.png>" << std::endl;
+    std::cerr << "Usage: vega-das-thumbnailer <input.blend> <output.png>" << std::endl;
     return -1;
   }
 

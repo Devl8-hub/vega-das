@@ -78,7 +78,7 @@ if(APPLE)
   # Libraries are bundled directly
   set(CPACK_COMPONENT_LIBRARIES_HIDDEN TRUE)
 
-  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/release/darwin/vega_das_background.png")
+  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/release/darwin/background.tif")
 endif()
 
 if(WIN32)
@@ -105,8 +105,8 @@ if(WIN32)
   set(CPACK_WIX_TEMPLATE ${CMAKE_SOURCE_DIR}/release/windows/installer_wix/WIX.template)
   set(CPACK_WIX_UI_BANNER ${CMAKE_SOURCE_DIR}/release/windows/installer_wix/WIX_UI_BANNER.bmp)
   set(CPACK_WIX_UI_DIALOG ${CMAKE_SOURCE_DIR}/release/windows/installer_wix/WIX_UI_DIALOG.png)
-  set(CPACK_WIX_EXTRA_SOURCES ${CMAKE_SOURCE_DIR}/release/windows/installer_wix/WixUI_Blender.wxs)
-  set(CPACK_WIX_UI_REF "WixUI_Blender")
+  set(CPACK_WIX_EXTRA_SOURCES ${CMAKE_SOURCE_DIR}/release/windows/installer_wix/WixUI_Vega_DAS.wxs)
+  set(CPACK_WIX_UI_REF "WixUI_Vega_DAS")
   set(CPACK_WIX_LIGHT_EXTRA_FLAGS -dcl:medium)
 endif()
 

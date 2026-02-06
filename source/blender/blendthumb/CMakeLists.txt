@@ -58,16 +58,16 @@ if(WIN32)
 
 elseif(APPLE)
   # -----------------------------------------------------------------------------
-  # Build `blender-thumbnailer.appex` app extension.
+  # Build `vega-das-thumbnailer.appex` app extension.
   set(SRC_APPEX
     src/thumbnail_provider.h
     src/thumbnail_provider.mm
   )
 
-  add_executable(blender-thumbnailer MACOSX_BUNDLE ${SRC} ${SRC_APPEX})
-  setup_platform_linker_flags(blender-thumbnailer)
-  setup_platform_linker_libs(blender-thumbnailer)
-  target_link_libraries(blender-thumbnailer
+  add_executable(vega-das-thumbnailer MACOSX_BUNDLE ${SRC} ${SRC_APPEX})
+  setup_platform_linker_flags(vega-das-thumbnailer)
+  setup_platform_linker_libs(vega-das-thumbnailer)
+  target_link_libraries(vega-das-thumbnailer
     bf_blenlib
     bf_blenloader_core
     # Avoid linker error about undefined _main symbol.
@@ -76,7 +76,7 @@ elseif(APPLE)
   )
   # The RPATH here points to the main Blender Resources/lib directory.
   # Avoid duplicating the large `dylibs` (~300MB).
-  set_target_properties(blender-thumbnailer PROPERTIES
+  set_target_properties(vega-das-thumbnailer PROPERTIES
     INSTALL_RPATH "@loader_path/../../../../Resources/lib"
     # Prevent Xcode from overwriting the signature.
     XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY ""
@@ -86,22 +86,22 @@ elseif(APPLE)
   # even on developer machine to generate thumbnails.
   # Command taken from XCode build process.
   add_custom_command(
-    TARGET blender-thumbnailer POST_BUILD
+    TARGET vega-das-thumbnailer POST_BUILD
     COMMAND codesign --deep --force --sign -
       --entitlements "${CMAKE_SOURCE_DIR}/release/darwin/thumbnailer_entitlements.plist"
-      --timestamp=none $<TARGET_BUNDLE_DIR:blender-thumbnailer>
+      --timestamp=none $<TARGET_BUNDLE_DIR:vega-das-thumbnailer>
   )
 elseif(UNIX)
   # -----------------------------------------------------------------------------
-  # Build `blender-thumbnailer` executable
+  # Build `vega-das-thumbnailer` executable
 
   set(SRC_CMD
     src/blender_thumbnailer.cc
   )
 
-  add_executable(blender-thumbnailer ${SRC} ${SRC_CMD})
-  setup_platform_linker_flags(blender-thumbnailer)
-  setup_platform_linker_libs(blender-thumbnailer)
-  target_link_libraries(blender-thumbnailer PRIVATE bf_blenlib bf_blenloader_core)
-  target_link_libraries(blender-thumbnailer PRIVATE bf::dependencies::pthreads)
+  add_executable(vega-das-thumbnailer ${SRC} ${SRC_CMD})
+  setup_platform_linker_flags(vega-das-thumbnailer)
+  setup_platform_linker_libs(vega-das-thumbnailer)
+  target_link_libraries(vega-das-thumbnailer PRIVATE bf_blenlib bf_blenloader_core)
+  target_link_libraries(vega-das-thumbnailer PRIVATE bf::dependencies::pthreads)
 endif()

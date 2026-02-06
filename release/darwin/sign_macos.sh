@@ -21,7 +21,7 @@ echo "Signing Vega DAS with identity: $IDENTITY"
 
 # 1. Sign internal libraries, helpers, and sub-bundles
 echo "Signing internal libraries and sub-bundles..."
-find "$APP_BUNDLE/Contents" -type f \( -name "*.dylib" -o -name "*.so" -o -name "Python" -o -name "blender-thumbnailer" \) -print0 | xargs -0 codesign --force --sign "$IDENTITY" --timestamp --options runtime
+find "$APP_BUNDLE/Contents" -type f \( -name "*.dylib" -o -name "*.so" -o -name "Python" -o -name "vega-das-thumbnailer" \) -print0 | xargs -0 codesign --force --sign "$IDENTITY" --timestamp --options runtime
 
 # Sign sub-bundles (extensions, etc)
 find "$APP_BUNDLE/Contents/PlugIns" -name "*.appex" -type d -print0 | xargs -0 codesign --force --sign "$IDENTITY" --timestamp --options runtime

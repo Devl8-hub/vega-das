@@ -345,10 +345,10 @@ endif
 # Allow passing in own BLENDER_BIN so developers who don't
 # use the default build path can still use utility helpers.
 ifeq ($(OS), Darwin)
-	BLENDER_BIN?="$(BUILD_DIR)/bin/Blender.app/Contents/MacOS/Blender"
-	BLENDER_BIN_DIR?="$(BUILD_DIR)/bin/Blender.app/Contents/MacOS/Blender"
+	BLENDER_BIN?="$(BUILD_DIR)/bin/Vega DAS.app/Contents/MacOS/Vega DAS"
+	BLENDER_BIN_DIR?="$(BUILD_DIR)/bin/Vega DAS.app/Contents/MacOS"
 else
-	BLENDER_BIN?="$(BUILD_DIR)/bin/blender"
+	BLENDER_BIN?="$(BUILD_DIR)/bin/vega_das"
 	BLENDER_BIN_DIR?="$(BUILD_DIR)/bin"
 endif
 
@@ -475,6 +475,18 @@ package_archive: .FORCE
 #
 test: .FORCE
 	@$(PYTHON) ./build_files/utils/make_test.py "$(BUILD_DIR)"
+
+
+# -----------------------------------------------------------------------------
+# Verification
+#
+verify: .FORCE
+ifeq ($(OS), Darwin)
+	@echo "Verifying Vega DAS.app bundle integrity..."
+	@codesign --verify --deep --strict --verbose=2 "$(BUILD_DIR)/bin/Vega DAS.app" && echo "Bundle integrity verified (valid on disk)." || (echo "Bundle integrity check FAILED."; exit 1)
+else
+	@echo "Verification is only supported on macOS."
+endif
 
 
 # -----------------------------------------------------------------------------
