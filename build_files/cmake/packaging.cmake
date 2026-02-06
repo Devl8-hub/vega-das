@@ -77,17 +77,21 @@ if(APPLE)
 
   # Libraries are bundled directly
   set(CPACK_COMPONENT_LIBRARIES_HIDDEN TRUE)
-
   set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/release/darwin/background.tif")
 endif()
 
 if(WIN32)
+  set(CPACK_GENERATOR "NSIS;ZIP")
   set(CPACK_PACKAGE_NAME "Vega DAS")
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "Vega DAS ${MAJOR_VERSION}.${MINOR_VERSION}")
   set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "Vega DAS ${MAJOR_VERSION}.${MINOR_VERSION}")
 
+  set(CPACK_NSIS_DISPLAY_NAME "Vega DAS")
+  set(CPACK_NSIS_PACKAGE_NAME "Vega DAS")
   set(CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/release/windows/icons/vegadas.ico)
+  set(CPACK_NSIS_MUI_UNIICON ${CMAKE_SOURCE_DIR}/release/windows/icons/vegadas.ico)
   set(CPACK_NSIS_COMPRESSOR "/SOLID lzma")
+  set(CPACK_NSIS_INSTALLED_ICON_NAME "Vega DAS_launcher.exe")
 
   # Even though we no longer display this, we still need to set it otherwise it'll throw an error
   # during the msi build.
@@ -110,8 +114,9 @@ if(WIN32)
   set(CPACK_WIX_LIGHT_EXTRA_FLAGS -dcl:medium)
 endif()
 
-set(CPACK_PACKAGE_EXECUTABLES "Vega DAS" "Vega DAS ${MAJOR_VERSION}.${MINOR_VERSION}")
-set(CPACK_CREATE_DESKTOP_LINKS "Vega DAS" "Vega DAS ${MAJOR_VERSION}.${MINOR_VERSION}")
+# Shortcuts: "Executable Name" "Shortcut Label"
+set(CPACK_PACKAGE_EXECUTABLES "Vega DAS_launcher" "Vega DAS")
+set(CPACK_CREATE_DESKTOP_LINKS "Vega DAS_launcher")
 
 include(CPack)
 
