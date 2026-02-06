@@ -1057,11 +1057,12 @@ class VIEW3D_HT_header(Header):
         # )
 
         # Overlay toggle & popover.
-        # row = layout.row(align=True)
-        # row.prop(overlay, "show_overlays", icon='OVERLAY', text="")
-        # sub = row.row(align=True)
-        # sub.active = overlay.show_overlays
-        # sub.popover(panel="VIEW3D_PT_overlay", text="")
+        # Overlay toggle & popover.
+        row = layout.row(align=True)
+        row.prop(overlay, "show_overlays", icon='OVERLAY', text="")
+        sub = row.row(align=True)
+        sub.active = overlay.show_overlays
+        sub.popover(panel="VIEW3D_PT_overlay", text="")
 
         # if mode_string == 'EDIT_MESH':
         #     sub.popover(panel="VIEW3D_PT_overlay_edit_mesh", text="", icon='EDITMODE_HLT')

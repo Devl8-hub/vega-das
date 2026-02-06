@@ -213,7 +213,7 @@ class TOPBAR_MT_file(Menu):
 
         layout.separator()
 
-        # layout.menu("TOPBAR_MT_file_defaults")
+        layout.menu("TOPBAR_MT_file_defaults")
 
         layout.separator()
 
@@ -267,21 +267,21 @@ class TOPBAR_MT_file_new(Menu):
             props = layout.operator("wm.read_homefile", text="General", icon='FILE_NEW')
             props.app_template = ""
 
-        for d in paths:
-            icon = 'FILE_NEW'
-            # Set icon per template.
-            if d == "2D_Animation":
-                icon = 'GREASEPENCIL_LAYER_GROUP'
-            elif d == "Sculpting":
-                icon = 'SCULPTMODE_HLT'
-            elif d == "Storyboarding":
-                icon = 'GREASEPENCIL'
-            elif d == "VFX":
-                icon = 'TRACKER'
-            elif d == "Video_Editing":
-                icon = 'SEQUENCE'
-            props = layout.operator("wm.read_homefile", text=bpy.path.display_name(iface_(d)), icon=icon)
-            props.app_template = d
+        # for d in paths:
+        #     icon = 'FILE_NEW'
+        #     # Set icon per template.
+        #     if d == "2D_Animation":
+        #         icon = 'GREASEPENCIL_LAYER_GROUP'
+        #     elif d == "Sculpting":
+        #         icon = 'SCULPTMODE_HLT'
+        #     elif d == "Storyboarding":
+        #         icon = 'GREASEPENCIL'
+        #     elif d == "VFX":
+        #         icon = 'TRACKER'
+        #     elif d == "Video_Editing":
+        #         icon = 'SEQUENCE'
+        #     props = layout.operator("wm.read_homefile", text=bpy.path.display_name(iface_(d)), icon=icon)
+        #     props.app_template = d
 
         layout.operator_context = 'EXEC_DEFAULT'
 
