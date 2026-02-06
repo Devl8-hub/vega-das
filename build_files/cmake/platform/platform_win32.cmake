@@ -174,7 +174,7 @@ if(NOT WITH_PYTHON_MODULE)
 endif()
 configure_file(
   ${CMAKE_SOURCE_DIR}/release/windows/manifest/blender.exe.manifest.in
-  ${CMAKE_CURRENT_BINARY_DIR}/blender.exe.manifest
+  ${CMAKE_CURRENT_BINARY_DIR}/vegadas.exe.manifest
   @ONLY
 )
 

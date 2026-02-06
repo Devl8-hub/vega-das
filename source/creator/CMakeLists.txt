@@ -361,7 +361,7 @@ else()
     )
     if(NOT WITH_WINDOWS_EXTERNAL_MANIFEST)
       target_sources(Vega_DAS_launcher PRIVATE
-        ${CMAKE_BINARY_DIR}/blender.exe.manifest
+        ${CMAKE_BINARY_DIR}/vegadas.exe.manifest
       )
     endif()
     target_compile_definitions(Vega_DAS_launcher PRIVATE -D_UNICODE -DUNICODE)

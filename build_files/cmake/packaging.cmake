@@ -114,6 +114,9 @@ if(WIN32)
   set(CPACK_WIX_LIGHT_EXTRA_FLAGS -dcl:medium)
 endif()
 
+# Consistent installer filename to prevent "Nearest match" guessing games
+set(CPACK_PACKAGE_FILE_NAME "Vega-DAS-Installer")
+
 # Shortcuts: "Executable Name" "Shortcut Label"
 set(CPACK_PACKAGE_EXECUTABLES "Vega DAS_launcher" "Vega DAS")
 set(CPACK_CREATE_DESKTOP_LINKS "Vega DAS")
