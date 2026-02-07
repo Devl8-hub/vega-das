@@ -141,49 +141,18 @@ class IMAGE_MT_view_zoom(Menu):
         layout.operator("image.view_zoom_border", text="Zoom Region...")
 
 
-class IMAGE_MT_select(Menu):
-    bl_label = "Select"
-
-    def draw(self, _context):
-        layout = self.layout
-
-        layout.operator("uv.select_all", text="All").action = 'SELECT'
-        layout.operator("uv.select_all", text="None").action = 'DESELECT'
-        layout.operator("uv.select_all", text="Invert").action = 'INVERT'
-
-        layout.separator()
-
-        layout.operator("uv.select_box").pinned = False
-        layout.operator("uv.select_box", text="Box Select Pinned").pinned = True
-        layout.operator("uv.select_circle")
-        layout.operator_menu_enum("uv.select_lasso", "mode", text="Lasso Select")
-
-        layout.separator()
-
-        layout.operator("uv.select_more", text="More")
-        layout.operator("uv.select_less", text="Less")
-
-        layout.separator()
-
-        layout.operator_menu_enum("uv.select_similar", "type", text="Select Similar")
-        layout.menu("IMAGE_MT_select_linked")
-        layout.operator("uv.select_tile")
-
-        layout.separator()
-
-        layout.operator("uv.select_pinned", text="Select Pinned")
-        layout.operator("uv.select_split")
-        layout.operator("uv.select_overlap")
+# MINIMAL UI: Disable Select menu
+# class IMAGE_MT_select(Menu):
+#     bl_label = "Select"
+#     def draw(self, _context):
+#         pass
 
 
-class IMAGE_MT_select_linked(Menu):
-    bl_label = "Select Linked"
-
-    def draw(self, _context):
-        layout = self.layout
-
-        layout.operator("uv.select_linked", text="Linked")
-        layout.operator("uv.shortest_path_select", text="Shortest Path")
+# MINIMAL UI: Disable Linked Select menu
+# class IMAGE_MT_select_linked(Menu):
+#     bl_label = "Select Linked"
+#     def draw(self, _context):
+#         pass
 
 
 class IMAGE_MT_image(Menu):
@@ -256,6 +225,7 @@ class IMAGE_MT_image(Menu):
         if ima and context.area.ui_type == 'IMAGE_EDITOR':
             layout.separator()
             layout.operator("palette.extract_from_image", text="Extract Palette")
+
 
 
 class IMAGE_MT_image_transform(Menu):
@@ -871,28 +841,9 @@ class IMAGE_HT_header(Header):
 
         # UV editing.
         if show_uvedit:
-            layout.prop(tool_settings, "use_uv_select_sync", text="")
+            # MINIMAL UI: Removed UV selection buttons (Sync, Selection Modes, Sticky)
+            pass
 
-            if tool_settings.use_uv_select_sync:
-                layout.template_edit_mode_selection()
-            else:
-                row = layout.row(align=True)
-                uv_select_mode = tool_settings.uv_select_mode[:]
-                row.operator(
-                    "uv.select_mode", text="", icon='UV_VERTEXSEL',
-                    depress=(uv_select_mode == 'VERTEX'),
-                ).type = 'VERTEX'
-                row.operator(
-                    "uv.select_mode", text="", icon='UV_EDGESEL',
-                    depress=(uv_select_mode == 'EDGE'),
-                ).type = 'EDGE'
-                row.operator(
-                    "uv.select_mode", text="", icon='UV_FACESEL',
-                    depress=(uv_select_mode == 'FACE'),
-                ).type = 'FACE'
-
-            layout.prop(tool_settings, "use_uv_select_island", icon_only=True)
-            layout.prop(tool_settings, "uv_sticky_select_mode", icon_only=True)
 
         IMAGE_MT_editor_menus.draw_collapsible(context, layout)
 
@@ -920,22 +871,6 @@ class IMAGE_HT_header(Header):
 
         if not show_render:
             layout.prop(sima, "use_image_pin", text="", emboss=False)
-
-        layout.separator_spacer()
-
-        # Gizmo toggle & popover.
-        row = layout.row(align=True)
-        row.prop(sima, "show_gizmo", icon='GIZMO', text="")
-        sub = row.row(align=True)
-        sub.active = sima.show_gizmo
-        sub.popover(panel="IMAGE_PT_gizmo_display", text="")
-
-        # Overlay toggle & popover
-        row = layout.row(align=True)
-        row.prop(overlay, "show_overlays", icon='OVERLAY', text="")
-        sub = row.row(align=True)
-        sub.active = overlay.show_overlays
-        sub.popover(panel="IMAGE_PT_overlay", text="")
 
         if show_uvedit:
             mesh = context.edit_object.data
@@ -975,9 +910,8 @@ class IMAGE_MT_editor_menus(Menu):
 
         layout.menu("IMAGE_MT_view")
 
-        if show_uvedit:
-            layout.menu("IMAGE_MT_select")
-        if show_maskedit:
+        # MINIMAL UI: Only show Select menu for mask edit, not UV edit
+        if show_maskedit and not show_uvedit:
             layout.menu("MASK_MT_select")
 
         if ima and ima.is_dirty:
@@ -986,8 +920,9 @@ class IMAGE_MT_editor_menus(Menu):
         else:
             layout.menu("IMAGE_MT_image", text="Image")
 
-        if show_uvedit:
-            layout.menu("IMAGE_MT_uvs")
+        # MINIMAL UI: Add Export UV button for UV editing mode
+        layout.operator("uv.export_layout", text="Export UV", icon='EXPORT')
+
         if show_maskedit:
             layout.menu("MASK_MT_add")
             layout.menu("MASK_MT_mask")
@@ -1836,8 +1771,8 @@ class IMAGE_AST_brush_paint(ImageAssetShelf, AssetShelf):
 classes = (
     IMAGE_MT_view,
     IMAGE_MT_view_zoom,
-    IMAGE_MT_select,
-    IMAGE_MT_select_linked,
+    # IMAGE_MT_select,
+    # IMAGE_MT_select_linked,
     IMAGE_MT_image,
     IMAGE_MT_image_transform,
     IMAGE_MT_image_invert,

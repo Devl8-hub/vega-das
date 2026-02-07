@@ -111,8 +111,9 @@ class ExportUVLayout(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        obj = context.active_object
-        return obj is not None and obj.type == 'MESH' and obj.data.uv_layers
+        # MINIMAL UI: Always return True so button is always visible
+        # Operator will report error if conditions aren't met when executed
+        return True
 
     def invoke(self, context, event):
         self.size = self.get_image_size(context)
@@ -135,6 +136,8 @@ class ExportUVLayout(bpy.types.Operator):
         ext = "." + self.mode.lower()
         self.filepath = bpy.path.ensure_ext(self.filepath, ext)
         return True
+
+
 
     def execute(self, context):
         obj = context.active_object

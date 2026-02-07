@@ -34,21 +34,16 @@ jobs:
     - name: Build
       run: ./make.bat release builddir build_windows
 
-    - name: Prepare Artifacts
-      shell: bash
+    - name: Package Installer (NSIS)
       run: |
-        mkdir -p artifacts
-        # Find and copy executables - they could be in various subdirectories
-        find ../build_windows -name "*.exe" -type f | head -20 | while read f; do
-          echo "Found: $f"
-          cp "$f" artifacts/ 2>/dev/null || true
-        done
-        # List what we collected
-        ls -la artifacts/ || echo "No artifacts found"
+        cd build_windows
+        cpack -C Release -G NSIS
+      shell: bash
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: VegaDAS-Windows-${{ github.sha }}
-        path: artifacts/
+        name: VegaDAS-Windows-Installer-${{ github.sha }}
+        path: build_windows/Vega-DAS-Installer.exe
         if-no-files-found: warn
+
