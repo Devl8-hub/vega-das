@@ -13,7 +13,11 @@ if NOT EXIST "%BUILD_VS_LIBDIR%\.git" (
 		echo.
 		echo The required external libraries in %BUILD_VS_LIBDIR% are missing
 		echo.
-		set /p GetLibs= "Would you like to download them? (y/n)"
+			if NOT "%GITHUB_ACTIONS%" == "" (
+				set GetLibs=Y
+			) else (
+				set /p GetLibs= "Would you like to download them? (y/n)"
+			)
 		if /I "!GetLibs!"=="Y" (
 			echo.
 			echo Downloading %BUILD_VS_LIBDIR% libraries, please wait.
@@ -35,7 +39,11 @@ if NOT EXIST "%BUILD_VS_LIBDIR%\.git" (
 			set GIT_LFS_SKIP_SMUDGE=
 			"%GIT%" -C "./%BUILD_VS_LIBDIR%" lfs pull
 			if errorlevel 1 (
-				set /p LibRetry= "Error during download, retry? y/n"
+				if NOT "%GITHUB_ACTIONS%" == "" (
+					set LibRetry=Y
+				) else (
+					set /p LibRetry= "Error during download, retry? y/n"
+				)
 				if /I "!LibRetry!"=="Y" (
 					goto RETRY
 				)
