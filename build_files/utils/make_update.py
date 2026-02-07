@@ -688,7 +688,7 @@ def main() -> int:
     if not args.no_lfs_fallback:
         lfs_fallback_setup(args)
 
-    if not args.no_blender:
+    if not args.no_vega_das:
         blender_skip_msg = git_update_skip(args)
         if not blender_skip_msg:
             blender_skip_msg = blender_update(args)
