@@ -23,6 +23,10 @@ if EXIST %PYTHON% (
 )
 
 if NOT EXIST %PYTHON% (
+	for %%X in (python.exe) do (set PYTHON=%%~$PATH:X)
+)
+
+if NOT EXIST %PYTHON% (
     if EXIST %BLENDER_DIR%\lib\windows_x64\.git (
       echo Warning: Python not found, there is likely an issue with the library folder
     )

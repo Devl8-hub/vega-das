@@ -8,7 +8,11 @@ if "%BUILD_ARCH%" == "arm64" (
 "%GIT%" -C "%BLENDER_DIR%\" config --local "submodule.%BUILD_VS_LIBDIR%.update" "checkout"
 "%GIT%" -C "%BLENDER_DIR%\" submodule update --progress --init "%BUILD_VS_LIBDIR%"
 if errorlevel 1 (
-		set /p LibRetry= "Error during update, retry? y/n"
+		if NOT "%GITHUB_ACTIONS%" == "" (
+			set LibRetry=Y
+		) else (
+			set /p LibRetry= "Error during update, retry? y/n"
+		)
 		if /I "!LibRetry!"=="Y" (
 			goto RETRY
 		)
