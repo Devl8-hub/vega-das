@@ -52,7 +52,7 @@ if NOT "%1" == "" (
 	) else if "%1" == "asan" (
 		set WITH_ASAN=1
 	) else if "%1" == "x86" ( 
-		echo Error: 32 bit builds of blender are no longer supported.
+		echo Error: 32 bit builds of Vega DAS are no longer supported.
 		goto ERR
 	) else if "%1" == "x64" (
 		set BUILD_ARCH=x64

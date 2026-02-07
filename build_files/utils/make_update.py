@@ -5,7 +5,7 @@
 
 """
 "make update" for all platforms, updating Git LFS submodules for libraries and
-Blender git repository.
+Vega DAS git repository.
 
 For release branches, this will check out the appropriate branches of
 submodules and libraries.
@@ -14,7 +14,7 @@ WARNING:
 - Python 3.6 is used on the Linux VM (Rocky8) to run "make update" to checkout LFS.
 - Python 3.9 is used on the built-bot.
 
-Take care *not* to use features from the Python version used by Blender!
+Take care *not* to use features from the Python version used by Vega DAS!
 
 NOTE:
 Some type annotations are quoted to avoid errors in older Python versions.
@@ -57,7 +57,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-libraries", action="store_true",
                         help="Don't fetch precompiled libraries for this system")
-    parser.add_argument("--no-blender", action="store_true", help="Don't update the Blender code repository")
+    parser.add_argument("--no-vega-das", action="store_true", help="Don't update the Vega DAS code repository")
     parser.add_argument(
         "--no-lfs-fallback",
         action="store_true",
@@ -111,8 +111,8 @@ def get_effective_architecture(args: argparse.Namespace) -> str:
     """
     Get architecture of the host.
 
-    The result string is normalized to the architecture name used by the Blender
-    releases and library repository name suffixes: x64, arm64.
+    The result string is normalized to the name used by Vega DAS releases and
+    library repository name prefixes: linux, macos, windows.
 
     NOTE: When cross-compiling the architecture is coming from the command line
     argument.
