@@ -180,7 +180,7 @@ if(WIN32 AND NOT UNIX)
 
   if(NOT WITH_WINDOWS_EXTERNAL_MANIFEST)
     list(APPEND SRC
-      ${CMAKE_BINARY_DIR}/blender.exe.manifest
+      ${CMAKE_BINARY_DIR}/vegadas.exe.manifest
     )
   endif()
 endif()
@@ -1036,11 +1036,11 @@ file(REMOVE ${CMAKE_BINARY_DIR}/bin/lib/libglapi.so.0.0.0)\n
 elseif(WIN32)
   if(WITH_WINDOWS_EXTERNAL_MANIFEST)
     install(
-      FILES ${CMAKE_BINARY_DIR}/blender.exe.manifest
+      FILES ${CMAKE_BINARY_DIR}/vegadas.exe.manifest
       DESTINATION "."
     )
     install(
-      FILES ${CMAKE_BINARY_DIR}/blender.exe.manifest
+      FILES ${CMAKE_BINARY_DIR}/vegadas.exe.manifest
       DESTINATION "."
       RENAME Vega_DAS_launcher.exe.manifest
     )

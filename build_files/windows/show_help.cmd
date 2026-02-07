@@ -1,6 +1,6 @@
 echo.
 echo Convenience targets
-echo - release ^(identical to the official blender.org builds^)
+echo - release ^(identical to the official Vega DAS builds^)
 echo - full ^(same as release minus the cuda kernels^)
 echo - lite
 echo - headless

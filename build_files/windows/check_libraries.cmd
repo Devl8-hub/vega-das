@@ -41,12 +41,12 @@ if NOT EXIST "%BUILD_VS_LIBDIR%\.git" (
 				)
 				echo.
 				echo Error: Download of external libraries failed. 
-				echo Until this is resolved you CANNOT make a successful blender build.
+				echo Until this is resolved you CANNOT make a successful Vega DAS build.
 				echo.
 				exit /b 1
 			)
 		) else (
-           echo Not downloading libraries, until this is resolved you CANNOT make a successful blender build.
+           echo Not downloading libraries, until this is resolved you CANNOT make a successful Vega DAS build.
            exit /b 1
         )
 	)

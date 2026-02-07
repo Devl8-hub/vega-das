@@ -1,6 +1,6 @@
 @echo off
 REM This batch file does an out-of-source CMake build in ../build_windows
-REM This is for users who like to configure & build Blender with a single command.
+REM This is for users who like to configure ^& build Vega DAS with a single command.
 setlocal EnableDelayedExpansion
 setlocal ENABLEEXTENSIONS
 set BLENDER_DIR=%~dp0
@@ -124,7 +124,7 @@ if "%WITH_CLANG%" == "1" (
 	)
 )
 
-echo Building blender with VS%BUILD_VS_YEAR% for %BUILD_ARCH% in %BUILD_DIR%
+echo Building Vega DAS with VS%BUILD_VS_YEAR% for %BUILD_ARCH% in %BUILD_DIR%
 
 call "%BLENDER_DIR%\build_files\windows\check_libraries.cmd"
 if errorlevel 1 goto EOF
