@@ -346,6 +346,9 @@ if(WITH_PYTHON_MODULE)
   endif()
 
 else()
+  if(WIN32)
+    set(EXETYPE WIN32)
+  endif()
   add_executable(blender ${EXETYPE} ${SRC})
   if(WITH_CPU_CHECK)
     # blender_cpu_check *NEEDS* to be linked first, there can be no exceptions
