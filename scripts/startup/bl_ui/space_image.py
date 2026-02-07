@@ -501,6 +501,8 @@ class IMAGE_MT_uvs(Menu):
 
         layout.separator()
 
+        layout.operator("uv.export_layout", text="Export UV Layout")
+
 
 class IMAGE_MT_uvs_select_mode(Menu):
     bl_label = "UV Select Mode"

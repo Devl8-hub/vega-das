@@ -86,6 +86,13 @@ def register():
         print(f"DEBUG: Cycles enable FAILED: {e}")
         import traceback
         traceback.print_exc()
+    
+    # Enable UV Layout export addon
+    try:
+        addon_utils.enable("io_mesh_uv_layout", default_set=True)
+    except Exception as e:
+        print(f"DEBUG: io_mesh_uv_layout enable FAILED: {e}")
+    
     for cls in classes:
         bpy.utils.register_class(cls)
 

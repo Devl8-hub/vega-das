@@ -54,9 +54,11 @@ class NODE_MT_shader_node_input_base(node_add_menu.NodeMenu):
         layout = self.layout
 
         self.node_operator(layout, "ShaderNodeAttribute")
+        self.node_operator(layout, "ShaderNodeVertexColor")
         self.node_operator(layout, "ShaderNodeUVMap")
 
         self.draw_assets_for_catalog(layout, self.bl_label)
+
 
 
 class NODE_MT_shader_node_output_base(node_add_menu.NodeMenu):
