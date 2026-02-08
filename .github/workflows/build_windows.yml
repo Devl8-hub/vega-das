@@ -36,7 +36,7 @@ jobs:
 
     - name: Package Installer (NSIS)
       run: |
-        cd build_windows
+        cd ../build_windows
         cpack -C Release -G NSIS
       shell: bash
 
@@ -44,6 +44,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: VegaDAS-Windows-Installer-${{ github.sha }}
-        path: build_windows/Vega-DAS-Installer.exe
+        # The installer is generated in the build directory, which is one level up
+        path: ../build_windows/Vega-DAS-Installer.exe
         if-no-files-found: warn
 
