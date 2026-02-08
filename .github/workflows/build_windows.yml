@@ -38,13 +38,14 @@ jobs:
       run: |
         cd ../build_windows
         cpack -C Release -G NSIS
+        # Copy installer to workspace as upload-artifact doesn't support paths outside workspace
+        cp "Vega-DAS-Installer.exe" "${{ github.workspace }}/Vega-DAS-Installer.exe"
       shell: bash
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: VegaDAS-Windows-Installer-${{ github.sha }}
-        # The installer is generated in the build directory, which is one level up
-        path: ../build_windows/Vega-DAS-Installer.exe
+        path: Vega-DAS-Installer.exe
         if-no-files-found: warn
 
